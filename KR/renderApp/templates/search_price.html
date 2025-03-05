@@ -1,0 +1,47 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  <title>Поиск товаров по средней цене</title>
+{% endblock %}
+
+{% block main %}
+  {% load static %}
+
+  <h5 class="card-title text-center">Поиск товаров по средней цене</h5>
+
+  <div class="card">
+    <div class="card-body">
+      <p><strong>Условие задачи:</strong> Марина анализирует средние цены в магазинах на продукты. Она хочет узнать, какие товары в среднем самые дешевые, помогите ей.</p>
+      <p><strong>Формат ввода:</strong> Вводится информация о каждом товаре в формате '<товар>:<цена в 1 магазине>,<цена во 2 магазине>,<цена в 3 магазине>'. Между собой информация о товарах разделена точкой с запятой и пробелом. Гарантируется, что названия товаров не повторяются и строка состоит минимум из информации об одном товаре.</p>
+      <p><strong>Формат вывода:</strong> Названия товаров в порядке от меньшей средней цене к большей. Если средняя цена одинаковая, то названия идут в алфавитном порядке.</p>
+
+      <form method="POST" class="d-flex flex-column align-items-center">
+        {% csrf_token %}
+        <label for="product_data" class="mb-2">Введите данные о товарах (товар:цена1,цена2,...;...):</label>
+        <textarea id="product_data" name="product_data" rows="6" class="form-control w-75 mb-3"></textarea>
+        <button type="submit" class="btn btn-primary">Поиск</button>
+      </form>
+    </div>
+
+    {% if sorted_items %}
+      <h5 class="card-title text-center">Товары с наименьшей средней ценой</h5>
+      <div class="card-body">
+        <ul class="list-group">
+          {% for item in sorted_items %}
+            <li class="list-group-item bg-light border p-2">
+              {{ item }}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+  </div>
+
+  <!-- Навигационные ссылки -->
+  <div class="d-flex justify-content-center mt-4">
+    <a href="{% url 'renderApp:index' %}" class="btn btn-secondary mx-2">На главную</a>
+    <a href="{% url 'renderApp:money_exchange' %}" class="btn btn-secondary mx-2">Вперед</a>
+  </div>
+{% endblock %}
+
+

@@ -1,0 +1,56 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  <title>Массивы объектов</title>
+{% endblock %}
+
+{% block main %}
+  {% load static %}
+
+  <h5 class="card-title text-center">Массивы объектов</h5>
+
+  <div class="card">
+    <div class="card-body">
+      <ul class="d-flex flex-row flex-wrap">
+        {% for object in dict_of_array.goods_array %}
+          <li class="m-2 list-group-item bg-light border p-3">
+            <img src="{% static object.img %}" width="200px" />
+ <!--           <img src="{{ object.img }}" width="200px" />-->
+            <h6>{{ object.title }}</h6>
+            <h6>{{ object.description }}.<h6>
+            </h6> Цена: {{ object.price }}р.<h6>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <h5 class="card-title text-center">Другие массивы</h5>
+    <div class="card-body">
+      <table class="table, border">
+        <tbody>
+          <tr class="border">
+            <td>Название</td>
+            <td>Изображение</td>
+            <td>Описание</td>
+          </tr>
+          {% for object in dict_of_array.box_array %}
+            <tr class="border">
+              <td>{{ object.title }}</td>
+              <td>
+                <img src="{% static object.img %}" width="200px>" />
+              </td>
+              <td>{{ object.description }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Навигационные ссылки -->
+  <div class="d-flex justify-content-center mt-4">
+    <a href="{% url 'renderApp:index' %}" class="btn btn-secondary mx-2">На главную</a>
+    <a href="{% url 'renderApp:money_exchange' %}" class="btn btn-secondary mx-2">Назад</a>
+    <a href="{% url 'renderApp:programm_info' %}" class="btn btn-secondary mx-2">Вперед</a>
+  </div>
+{% endblock %}
