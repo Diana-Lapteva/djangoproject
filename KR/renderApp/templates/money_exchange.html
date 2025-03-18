@@ -1,0 +1,42 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  <title>Размен денег</title>
+{% endblock %}
+
+{% block main %}
+  <div class="container mt-5">
+    <h2 class="text-center">Размен денег</h2>
+
+    <p class="text-center">
+      Известна денежная сумма. Разменять её купюрами 500, 100, 10 и монетой 2 руб., если это возможно.
+    </p>
+
+    <form method="POST" class="text-center mt-3">
+      {% csrf_token %}
+      <label for="amount">Введите сумму:</label>
+      <input type="number" id="amount" name="amount" value="{{ default_value }}" class="form-control w-50 mx-auto" required>
+      <button type="submit" class="btn btn-primary mt-2">Разменять</button>
+    </form>
+
+    {% if exchange_result %}
+      <h4 class="mt-4 text-center">Размен:</h4>
+      <ul class="list-group w-50 mx-auto">
+        {% for bill, count in exchange_result.items %}
+          {% if count > 0 %}
+            <li class="list-group-item">{{ bill }} руб.: {{ count }} шт.</li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    {% elif error_message %}
+      <p class="text-danger text-center mt-4">{{ error_message }}</p>
+    {% endif %}
+  </div>
+
+  <!-- Навигационные ссылки -->
+  <div class="d-flex justify-content-center mt-4">
+    <a href="{% url 'renderApp:index' %}" class="btn btn-secondary mx-2">На главную</a>
+    <a href="{% url 'renderApp:search_price' %}" class="btn btn-secondary mx-2">Назад</a>
+    <a href="{% url 'renderApp:objects_arrays' %}" class="btn btn-secondary mx-2">Вперед</a>
+  </div>
+{% endblock %}
