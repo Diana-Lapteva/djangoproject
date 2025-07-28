@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Мои сокурсники</h1>
+
+<form method="get">
+    <label>Пол:
+        <select name="gender">
+            <option value="">Все</option>
+            <option value="M" {% if request.GET.gender == 'M' %}selected{% endif %}>Мужской</option>
+            <option value="F" {% if request.GET.gender == 'F' %}selected{% endif %}>Женский</option>
+        </select>
+    </label>
+    <label>Сортировать по среднему баллу:
+        <select name="sort">
+            <option value="">Без сортировки</option>
+            <option value="asc" {% if request.GET.sort == 'asc' %}selected{% endif %}>По возрастанию</option>
+            <option value="desc" {% if request.GET.sort == 'desc' %}selected{% endif %}>По убыванию</option>
+        </select>
+    </label>
+    <button type="submit">Применить</button>
+</form>
+
+<hr>
+
+{% for mate in mates %}
+    <h2>{{ mate.full_name }}</h2>
+    <img src="{{ mate.photo.url }}" width="150">
+    <p>Email: {{ mate.email }}</p>
+    <p>Телефон: {{ mate.phone }}</p>
+    <p>Пол: {{ mate.get_gender_display }}</p>
+    <p>Средний балл: {{ mate.average_grade }}</p>
+{% empty %}
+    <p>Нет подходящих сокурсников.</p>
+{% endfor %}
+{% endblock %}
+

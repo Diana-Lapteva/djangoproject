@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{{ program.name }}</h1>
+<p><a href="{{ program.link }}" target="_blank">Ссылка на программу</a></p>
+<p>Описание: {{ program.description }}</p>
+<p>Чему научусь: {{ program.what_to_learn }}</p>
+<p>Преимущества: {{ program.advantages }}</p>
+<p>Перспективы: {{ program.prospects }}</p>
+{% endblock %}

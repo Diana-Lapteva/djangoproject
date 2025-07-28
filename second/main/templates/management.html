@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Менеджмент программы</h1>
+{% for m in management %}
+    <h2>{{ m.full_name }} {% if m.is_head %}(Академ. руководитель){% endif %}</h2>
+    <img src="{{ m.photo.url }}" width="150">
+    <p>Email: {{ m.email }}</p>
+{% endfor %}
+{% endblock %}
